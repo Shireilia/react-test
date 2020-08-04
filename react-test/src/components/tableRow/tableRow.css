@@ -1,0 +1,16 @@
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.first-cell {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.cell {
+  display: flex;
+  justify-content: flex-end;
+  width: 33%;
+}
