@@ -1,22 +1,50 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
 import { Movie } from "../../models/movie";
-import TableHeaderRow from "../tableHeaderRow/tableHeaderRow";
-import TableRow from "../tableRow/tableRow";
+import MovieCard from "../movie-card/movie-card";
 import "./table.css";
 
-export default class Table extends Component<PropsTable, object> {
+export default class Table extends Component<PropsTable, StateTable> {
+  constructor(props: PropsTable) {
+    super(props);
+
+    this.state = {
+      redirect: null
+    };
+  }
+
   render() {
+    if (this.state.redirect) {
+      return <Redirect to={this.state.redirect} />;
+    }
     return (
-      <div className="table">
-        <TableHeaderRow />
+      <ul className="table">
         {this.props.movieList.map(movie => {
-          return <TableRow movie={movie} key={movie.imdbID} />;
+          return (
+            <li
+              className="movie-element"
+              key={movie.imdbID}
+              onClick={() => {
+                this.handleRedirection(movie);
+              }}
+            >
+              <MovieCard movie={movie} />
+            </li>
+          );
         })}
-      </div>
+      </ul>
     );
+  }
+
+  handleRedirection(movie: Movie) {
+    this.setState({ redirect: `/films/${movie.imdbID}` });
   }
 }
 
 export interface PropsTable {
   movieList: Movie[];
+}
+
+export interface StateTable {
+  redirect: string | null;
 }
