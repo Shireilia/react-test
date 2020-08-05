@@ -9,7 +9,7 @@ export default class Table extends Component<PropsTable, StateTable> {
     super(props);
 
     this.state = {
-      redirect: null
+      redirect: null,
     };
   }
 
@@ -19,7 +19,7 @@ export default class Table extends Component<PropsTable, StateTable> {
     }
     return (
       <ul className="table">
-        {this.props.movieList.map(movie => {
+        {this.props.movieList.map((movie) => {
           return (
             <li
               className="movie-element"
@@ -37,7 +37,7 @@ export default class Table extends Component<PropsTable, StateTable> {
   }
 
   handleRedirection(movie: Movie) {
-    this.setState({ redirect: `/films/${movie.imdbID}` });
+    this.setState({ redirect: `/movies/${movie.imdbID}` });
   }
 }
 

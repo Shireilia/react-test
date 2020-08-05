@@ -9,6 +9,7 @@ export default class MovieCard extends Component<PropsCard, object> {
         <img src={this.props.movie.Poster} alt="poster" />
         <div>{this.props.movie.Year}</div>
         <div>{this.props.movie.Title}</div>
+        <div>{this.props.movie.Plot}</div>
       </div>
     );
   }

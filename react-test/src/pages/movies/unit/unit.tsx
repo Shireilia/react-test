@@ -1,37 +1,37 @@
 import axios from "axios";
 import React, { Component } from "react";
-import { useParams } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import ConditionnalMovie from "../../../components/conditionnal-movie/conditionnal-movie";
 import { API_KEY, API_URL } from "../../../conf/environnement";
 import { Movie } from "../../../models/movie";
+import "./unit.css";
 
-export default class MovieSingle extends Component<object, MovieSingleState> {
+export class MovieSingle extends Component<any, MovieSingleState> {
   constructor(props: object) {
     super(props);
-
     this.state = {
-      movie: undefined
+      movie: undefined,
     };
   }
 
   render() {
     return (
-      <div className="movie-list">
+      <div className="movie">
         <ConditionnalMovie movie={this.state.movie} />
       </div>
     );
   }
 
   componentDidMount() {
-    let { movieId } = useParams();
+    const movieId = this.props.match.params.movieId;
     axios
-      .get(`${API_URL}?t=${movieId}&page=1&apikey=${API_KEY}`)
-      .then(result => {
+      .get(`${API_URL}?i=${movieId}&page=1&apikey=${API_KEY}`)
+      .then((result) => {
         this.setState({
-          movie: result.data
+          movie: result.data,
         });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log("Oh noes ! : ", error);
       });
   }
@@ -40,3 +40,5 @@ export default class MovieSingle extends Component<object, MovieSingleState> {
 export interface MovieSingleState {
   movie: Movie | undefined;
 }
+
+export default withRouter(MovieSingle as any);
